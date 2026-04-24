@@ -1,40 +1,57 @@
-# Gestion de Bibliotheque — Frontend
+# Gestion de Bibliotheque — Backend
 
-Application Angular pour la gestion de bibliotheque.
+Application Spring Boot pour la gestion de bibliotheque.
 
-**Stack:** Angular 21 · NgModules
+**Stack:** Java 17 · Spring Boot 2.7.18 · H2 · JPA · MapStruct · Lombok
 
 ## Prerequis
 
-- Node.js 20.19+ ou 22.12+ (LTS recommande; voir [versions supportees](https://angular.dev/reference/versions))
-- npm
-- Angular CLI 21 (optionnel, `npx ng ...` fonctionne aussi sans installation globale)
+- Java 17
+- Maven 3.8+
 
-## Lancer le frontend
+## Lancer le backend
 
-Dans un terminal:
-
-```bash
-npm install
-npx ng serve --open
-```
-
-Frontend disponible sur:
-- `http://localhost:4200`
-
-Le frontend appelle le backend via:
-- `http://localhost:8080/api`
-
-> Assurez-vous que le backend est deja lance avant de demarrer le frontend.
-
-## Build de production
+Ouvrez un terminal a la racine du projet puis executez:
 
 ```bash
-npx ng build
+mvn clean install
+mvn spring-boot:run
 ```
 
-Les fichiers generes sont dans:
-- `frontend/dist/gestion-biblio`
+Le backend demarre sur:
+- API: `http://localhost:8080/api`
+- Console H2: `http://localhost:8080/h2-console`
+
+Parametres H2:
+- JDBC URL: `jdbc:h2:mem:biblioDb`
+- User: `sa`
+- Password: (vide)
+
+## Donnees chargees au demarrage
+
+Le backend injecte automatiquement des donnees de demo au startup:
+- Auteurs: Victor Hugo, Albert Camus
+- Categories: Roman, Philosophie
+- Editeurs: Gallimard, Flammarion
+- Livres: Les Miserables, Notre-Dame de Paris, L'Etranger, Le Mythe de Sisyphe
+
+## Executer les tests
+
+```bash
+mvn test
+```
+
+## Tester l'API avec Postman
+
+1. Ouvrir Postman
+2. Importer `Bibliotheque_API.postman_collection.json` (racine du projet)
+3. Verifier la variable de collection:
+   - `baseUrl = http://localhost:8080`
+4. Executer les requetes dans les dossiers:
+   - Auteurs
+   - Livres
+   - Categories
+   - Editeurs
 
 ---
 
